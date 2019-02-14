@@ -1,18 +1,61 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Cards;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class CardManager : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+public class CardManager : MonoBehaviour {
+    [InlineEditor] public Deck Deck;
+
+    [SerializeField] [OnValueChanged("UpdateHandSize")]
+    private int HandSize;
+
+    [SerializeField] public Card[] Hand;
+
+    [SerializeField] private RectTransform SlotContainer;
+
+    private UISlot[] UISlots;
+
+    [SerializeField] private UISlot UISlotPrefab;
+
+    private void UpdateHandSize() {
+        Hand = new Card[HandSize];
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public void UseCard(UseInfo info) {
+        if (info.Slot >= HandSize) return; // Card won't exist if higher than hand size.
+
+        Hand[info.Slot].Use(info);
+        UISlots[info.Slot].RemoveCard();
+    }
+
+    private void Start() {
+        Deck.Initialize();
+
+        UISlots = new UISlot[HandSize];
+        for (int i = 0; i < HandSize; i++) {
+            UISlot slot = Instantiate(UISlotPrefab, SlotContainer);
+            slot.SetSubText((i + 1).ToString());
+            UISlots[i] = slot;
+        }
+    }
+
+    [Button("Fill Hand")]
+    public void FillHand() {
+        for (var i = 0; i < Hand.Length; i++) {
+            Card card = Hand[i];
+            if (card == null) Hand[i] = Deck.Draw();
+        }
+
+        UpdateHandUI();
+    }
+
+    private void UpdateHandUI() {
+        for (var i = 0; i < UISlots.Length; i++) {
+            UISlot slot = UISlots[i];
+            if (Hand[i] != null) {
+                slot.SetCard(Hand[i]);
+            }
+        }
     }
 }

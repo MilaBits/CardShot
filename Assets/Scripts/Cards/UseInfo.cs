@@ -2,14 +2,13 @@
 
 namespace Cards {
     public struct UseInfo {
+        public int Slot;
         public Player Caster;
-        public Player TargetPlayer;
-        public Vector3 TargetPosition;
 
-        public UseInfo(Player caster, Player targetPlayer, Vector3 targetPosition) {
-            Caster = caster;
-            TargetPlayer = targetPlayer;
-            TargetPosition = targetPosition;
-        }
+        public bool NoPlayer;
+        public Player TargetPlayer;
+
+        public bool NoPosition;
+        public Vector3 TargetPosition;
     }
 }
