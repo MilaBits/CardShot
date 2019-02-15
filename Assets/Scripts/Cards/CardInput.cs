@@ -44,7 +44,7 @@ public class CardInput : MonoBehaviour {
         UseInfo info = new UseInfo();
 
         info.Slot = slot;
-        info.Caster = GetComponent<Player>();
+        info.Caster = GetComponent<PlayerModifiers>();
         RaycastPlayer(info);
         RaycastLevel(info);
 
@@ -55,7 +55,7 @@ public class CardInput : MonoBehaviour {
         RaycastHit hit = new RaycastHit();
         Physics.Raycast(camera.transform.position, camera.transform.forward, out hit, playerLayer);
         if (hit.collider != null) {
-            info.TargetPlayer = hit.collider.GetComponent<Player>();
+            info.TargetPlayerModifiers = hit.collider.GetComponent<PlayerModifiers>();
             info.NoPlayer = false;
         }
 

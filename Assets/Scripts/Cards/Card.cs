@@ -8,14 +8,18 @@ using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "New Card", menuName = "Cards/Card")]
 public class Card : ScriptableObject {
-    [HorizontalGroup("split", .1f)] [BoxGroup("split/Image"), PreviewField, HideLabel]
+    [HorizontalGroup("split", .1f)]
+    [BoxGroup("split/Image")]
+    [PreviewField, HideLabel]
     public Sprite Image;
 
-    [BoxGroup("split/Description"), LabelWidth(70), Multiline(3), HideLabel]
+    [BoxGroup("split/Description")]
+    [LabelWidth(70), Multiline(3), HideLabel]
     public string Description;
 
     [Space]
-    [InlineEditor(InlineEditorModes.GUIOnly, InlineEditorObjectFieldModes.Hidden)] public List<CardEffect> CardEffects;
+    [InlineEditor(InlineEditorModes.GUIOnly, InlineEditorObjectFieldModes.Hidden)]
+    public List<CardEffect> CardEffects;
 
     public void Use(UseInfo info) {
         foreach (CardEffect cardEffect in CardEffects) {
@@ -27,7 +31,7 @@ public class Card : ScriptableObject {
                     cardEffect.ExecutePlayer(info.Caster);
                     break;
                 case EffectTarget.Opponent:
-                    cardEffect.ExecutePlayer(info.TargetPlayer);
+                    cardEffect.ExecutePlayer(info.TargetPlayerModifiers);
                     break;
                 case EffectTarget.Area:
                     cardEffect.ExecuteArea(info.TargetPosition);

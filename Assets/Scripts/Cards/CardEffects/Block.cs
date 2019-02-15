@@ -30,7 +30,7 @@ public class Block : CardEffect {
         Debug.Log($"{name} hit {position}");
     }
 
-    public override void ExecutePlayer(Player player) {
-        Debug.Log($"{name} hit {player.name}");
+    public override void ExecutePlayer(PlayerModifiers playerModifiers) {
+        Debug.Log($"{name} hit {playerModifiers.name}");
     }
 }

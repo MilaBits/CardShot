@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\Milly\.Rider2018.2\config\scratches" t="IncludeRecursive" />
-    <e p="C:\Users\Milly\.Rider2018.2\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\Milly\.Rider2018.2\system\resharper-host\local\Transient\ReSharperHost\v182\SolutionCaches\_CardShot.1353077421.00" t="ExcludeRecursive" />
-    <e p="D:\Projects\Unity\CardShot" t="IncludeRecursive">
+    <e p="C:\Users\Mila\.Rider2018.3\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\Mila\.Rider2018.3\system\resharper-host\local\Transient\ReSharperHost\v183\SolutionCaches\_CardShot.1702206169.00" t="ExcludeRecursive" />
+    <e p="D:\Data\Projects\Unity\CardShot" t="IncludeRecursive">
       <e p="Assembly-CSharp-Editor-firstpass.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp-firstpass.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
         <e p="Plugins" t="Include">
+          <e p="Editor" t="Include">
+            <e p="JetBrains" t="Include">
+              <e p="Unity3DRider.cs" t="Include" />
+            </e>
+          </e>
           <e p="Sirenix" t="Include">
             <e p="Assemblies" t="Include">
               <e p="link.xml" t="Include" />
@@ -591,6 +595,7 @@
           </e>
         </e>
         <e p="Scripts" t="Include">
+          <e p="CameraController.cs" t="Include" />
           <e p="Cards" t="Include">
             <e p="Card.cs" t="Include" />
             <e p="CardEffect.cs" t="Include" />
@@ -602,11 +607,17 @@
             <e p="CardManager.cs" t="Include" />
             <e p="Deck.cs" t="Include" />
             <e p="EffectTarget.cs" t="Include" />
+            <e p="Modifier.cs" t="Include" />
+            <e p="Modifiers" t="Include">
+              <e p="SpeedModifier.cs" t="Include" />
+            </e>
             <e p="UICard.cs" t="Include" />
             <e p="UISlot.cs" t="Include" />
             <e p="UseInfo.cs" t="Include" />
           </e>
-          <e p="Player.cs" t="Include" />
+          <e p="CharacterController.cs" t="Include" />
+          <e p="MouseCamLook.cs" t="Include" />
+          <e p="PlayerModifiers.cs" t="Include" />
         </e>
         <e p="TextMesh Pro" t="Include">
           <e p="Resources" t="Include">

@@ -17,5 +17,5 @@ public abstract class CardEffect : ScriptableObject {
     }
 
     public abstract void ExecuteArea(Vector3 position);
-    public abstract void ExecutePlayer(Player player);
+    public abstract void ExecutePlayer(PlayerModifiers playerModifiers);
 }

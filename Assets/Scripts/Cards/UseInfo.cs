@@ -3,10 +3,10 @@
 namespace Cards {
     public struct UseInfo {
         public int Slot;
-        public Player Caster;
+        public PlayerModifiers Caster;
 
         public bool NoPlayer;
-        public Player TargetPlayer;
+        public PlayerModifiers TargetPlayerModifiers;
 
         public bool NoPosition;
         public Vector3 TargetPosition;

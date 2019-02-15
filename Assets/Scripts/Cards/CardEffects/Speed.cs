@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -14,6 +15,12 @@ public class Speed : CardEffect {
     [BoxGroup("$name")] [LabelWidth(100), OnValueChanged("UpdateDescription")]
     public float Duration;
 
+    public Modifier TargetModifier;
+
+    private void Awake() {
+        UpdateDescription();
+    }
+
     private void UpdateDescription() {
         string multiplier = string.Empty;
         multiplier = SpeedMultiplier > 1 ? "Increase" : "Decrease";
@@ -26,7 +33,9 @@ public class Speed : CardEffect {
         Debug.Log($"{name} hit {position}");
     }
 
-    public override void ExecutePlayer(Player player) {
-        Debug.Log($"{name} hit {player.name}");
+    public override void ExecutePlayer(PlayerModifiers playerModifiers) {
+        Debug.Log(playerModifiers);
+        Modifier modifier = playerModifiers.Modifiers.First(x => x.GetType().Equals(TargetModifier.GetType()));
+        modifier.Modify(playerModifiers.gameObject, SpeedMultiplier, Duration);
     }
 }
