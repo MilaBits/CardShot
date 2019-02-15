@@ -6,7 +6,7 @@ using UnityEngine;
 public class SpeedModifier : Modifier {
     [BoxGroup("$name")]
     [SerializeField]
-    private vp_FPController FPController;
+    private CharacterController Controller;
 
     [BoxGroup("$name")]
     [SerializeField]
@@ -20,20 +20,20 @@ public class SpeedModifier : Modifier {
     private float Duration;
 
     public override void Modify(GameObject parent, float value, float duration) {
-        FPController = parent.GetComponent<vp_FPController>();
+        Controller = parent.GetComponent<CharacterController>();
 
-        OriginalSpeed = FPController.MotorAcceleration;
-        FPController.MotorAcceleration *= value;
+        OriginalSpeed = Controller.speed;
+        Controller.speed *= value;
         isModifying = true;
 
         // This feels hacky?????
-        FPController.StartCoroutine(LastDuration(duration));
+        Controller.StartCoroutine(LastDuration(duration));
     }
 
     IEnumerator LastDuration(float duration) {
         Duration = duration;
         yield return new WaitForSeconds(duration);
-        FPController.MotorAcceleration = OriginalSpeed;
+        Controller.speed= OriginalSpeed;
         isModifying = false;
     }
 }

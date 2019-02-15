@@ -15,6 +15,7 @@ public class Speed : CardEffect {
     [BoxGroup("$name")] [LabelWidth(100), OnValueChanged("UpdateDescription")]
     public float Duration;
 
+    [BoxGroup("$name")]
     public Modifier TargetModifier;
 
     private void Awake() {

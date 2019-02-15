@@ -38,6 +38,8 @@ public class CardManager : MonoBehaviour {
             slot.SetSubText((i + 1).ToString());
             UISlots[i] = slot;
         }
+
+        FillHand();
     }
 
     [Button("Fill Hand")]
