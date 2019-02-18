@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Cards;
+﻿using Cards;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -12,11 +10,11 @@ public class CardManager : MonoBehaviour {
 
     [SerializeField] public Card[] Hand;
 
-    [SerializeField] private RectTransform SlotContainer;
+    [SerializeField, PropertyOrder(2)] private RectTransform SlotContainer;
 
     private UISlot[] UISlots;
 
-    [SerializeField] private UISlot UISlotPrefab;
+    [SerializeField, PropertyOrder(3)] private UISlot UISlotPrefab;
 
     private void UpdateHandSize() {
         Hand = new Card[HandSize];
@@ -42,7 +40,7 @@ public class CardManager : MonoBehaviour {
         FillHand();
     }
 
-    [Button("Fill Hand")]
+    [Button("Fill Hand", ButtonStyle.CompactBox), PropertyOrder(1)]
     public void FillHand() {
         for (var i = 0; i < Hand.Length; i++) {
             Card card = Hand[i];

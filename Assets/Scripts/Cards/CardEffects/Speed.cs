@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -12,7 +10,8 @@ public class Speed : CardEffect {
     [LabelWidth(100), OnValueChanged("UpdateDescription"), Range(-0, 2)]
     public float SpeedMultiplier;
 
-    [BoxGroup("$name")] [LabelWidth(100), OnValueChanged("UpdateDescription")]
+    [BoxGroup("$name")]
+    [LabelWidth(100), OnValueChanged("UpdateDescription")]
     public float Duration;
 
     [BoxGroup("$name")]
@@ -36,7 +35,20 @@ public class Speed : CardEffect {
 
     public override void ExecutePlayer(PlayerModifiers playerModifiers) {
         Debug.Log(playerModifiers);
+        
+
+        // Check if the recipient can recive the modifier
         Modifier modifier = playerModifiers.Modifiers.First(x => x.GetType().Equals(TargetModifier.GetType()));
-        modifier.Modify(playerModifiers.gameObject, SpeedMultiplier, Duration);
+        if (modifier != null && modifier.isModifying && !modifier.isStackable) return;
+
+        modifier.Modify(playerModifiers, SpeedMultiplier, Duration);
+
+        // Decide if it should be the positive or negative sprite
+        if (SpeedMultiplier > 1) {
+            playerModifiers.AddStatUI(modifier.PositiveImage, Duration, modifier.PositiveColor);
+        }
+        else {
+            playerModifiers.AddStatUI(modifier.NegativeImage, Duration, modifier.NegativeColor);
+        }
     }
 }

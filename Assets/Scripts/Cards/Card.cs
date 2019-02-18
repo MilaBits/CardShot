@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using Cards;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "New Card", menuName = "Cards/Card")]
 public class Card : ScriptableObject {

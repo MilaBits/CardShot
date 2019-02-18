@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using Cards;
+﻿using Cards;
 using UnityEngine;
 
 [RequireComponent(typeof(CardManager))]
@@ -11,8 +8,11 @@ public class CardInput : MonoBehaviour {
     [SerializeField]
     private Camera camera;
 
-    [SerializeField] private LayerMask playerLayer;
-    [SerializeField] private LayerMask levelLayer;
+    [SerializeField]
+    private LayerMask playerLayer;
+
+    [SerializeField]
+    private LayerMask levelLayer;
 
     private void Start() {
         cardManager = GetComponent<CardManager>();
@@ -20,23 +20,23 @@ public class CardInput : MonoBehaviour {
 
     void FixedUpdate() {
         if (Input.GetButtonDown("Card1")) {
-            cardManager.UseCard(GetUseInfo(1));
+            cardManager.UseCard(GetUseInfo(0));
         }
 
         if (Input.GetButtonDown("Card2")) {
-            cardManager.UseCard(GetUseInfo(2));
+            cardManager.UseCard(GetUseInfo(1));
         }
 
         if (Input.GetButtonDown("Card3")) {
-            cardManager.UseCard(GetUseInfo(3));
+            cardManager.UseCard(GetUseInfo(2));
         }
 
         if (Input.GetButtonDown("Card4")) {
-            cardManager.UseCard(GetUseInfo(4));
+            cardManager.UseCard(GetUseInfo(3));
         }
 
         if (Input.GetButtonDown("Card5")) {
-            cardManager.UseCard(GetUseInfo(5));
+            cardManager.UseCard(GetUseInfo(4));
         }
     }
 
@@ -45,31 +45,37 @@ public class CardInput : MonoBehaviour {
 
         info.Slot = slot;
         info.Caster = GetComponent<PlayerModifiers>();
-        RaycastPlayer(info);
-        RaycastLevel(info);
+        info = RaycastPlayer(info);
+        info = RaycastLevel(info);
 
         return info;
     }
 
-    private void RaycastPlayer(UseInfo info) {
+    private UseInfo RaycastPlayer(UseInfo info) {
         RaycastHit hit = new RaycastHit();
         Physics.Raycast(camera.transform.position, camera.transform.forward, out hit, playerLayer);
         if (hit.collider != null) {
             info.TargetPlayerModifiers = hit.collider.GetComponent<PlayerModifiers>();
             info.NoPlayer = false;
         }
+        else {
+            info.NoPlayer = true;
+        }
 
-        info.NoPlayer = true;
+        return info;
     }
 
-    private void RaycastLevel(UseInfo info) {
+    private UseInfo RaycastLevel(UseInfo info) {
         RaycastHit hit = new RaycastHit();
         Physics.Raycast(camera.transform.position, camera.transform.forward, out hit, levelLayer);
         if (hit.collider != null) {
             info.TargetPosition = hit.point;
             info.NoPosition = false;
         }
+        else {
+            info.NoPosition = true;
+        }
 
-        info.NoPosition = true;
+        return info;
     }
 }

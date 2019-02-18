@@ -8,32 +8,39 @@ public class SpeedModifier : Modifier {
     [SerializeField]
     private CharacterController Controller;
 
-    [BoxGroup("$name")]
-    [SerializeField]
-    private bool isModifying;
-
-    [BoxGroup("$name")]
     private float OriginalSpeed;
 
     [BoxGroup("$name")]
     [SerializeField, ReadOnly]
     private float Duration;
 
-    public override void Modify(GameObject parent, float value, float duration) {
-        Controller = parent.GetComponent<CharacterController>();
+    private IEnumerator coroutine;
+
+    public override void Modify(PlayerModifiers modifiers, float value, float duration) {
+        Controller = modifiers.GetComponent<CharacterController>();
 
         OriginalSpeed = Controller.speed;
         Controller.speed *= value;
         isModifying = true;
 
+        coroutine = LastDuration(duration);
         // This feels hacky?????
-        Controller.StartCoroutine(LastDuration(duration));
+        Controller.StartCoroutine(coroutine);
+    }
+
+    public override void Cancel() {
+        Controller.StopCoroutine(coroutine);
+        ResetModifier();
+    }
+
+    private void ResetModifier() {
+        Controller.speed = OriginalSpeed;
+        isModifying = false;
     }
 
     IEnumerator LastDuration(float duration) {
         Duration = duration;
         yield return new WaitForSeconds(duration);
-        Controller.speed= OriginalSpeed;
-        isModifying = false;
+        ResetModifier();
     }
 }

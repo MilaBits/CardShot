@@ -6,7 +6,6 @@
  * date : 2017/12
  */
 
-using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class MouseCamLook : MonoBehaviour {

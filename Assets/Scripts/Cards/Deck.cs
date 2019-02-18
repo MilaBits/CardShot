@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -21,9 +20,10 @@ public class Deck : SerializedScriptableObject {
 
     public void Initialize() {
         Cards = new Stack<Card>(PreparedCards);
+        Shuffle();
     }
 
-    [Button]
+    [Button(ButtonStyle.CompactBox)]
     public void Shuffle() {
         var values = Cards.ToArray();
         
