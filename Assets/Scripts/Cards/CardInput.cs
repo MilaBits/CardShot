@@ -14,11 +14,17 @@ public class CardInput : MonoBehaviour {
     [SerializeField]
     private LayerMask levelLayer;
 
+    [SerializeField]
+    private NetworkPlayer networkPlayer;
+
     private void Start() {
         cardManager = GetComponent<CardManager>();
     }
 
-    void FixedUpdate() {
+    void Update() {
+        // Don't cehck any input this isn't on the local player
+        if (!networkPlayer.isLocalPlayer) return;
+        
         if (Input.GetButtonDown("Card1")) {
             cardManager.UseCard(GetUseInfo(0));
         }
@@ -55,7 +61,7 @@ public class CardInput : MonoBehaviour {
         RaycastHit hit = new RaycastHit();
         Physics.Raycast(camera.transform.position, camera.transform.forward, out hit, playerLayer);
         if (hit.collider != null) {
-            info.TargetPlayerModifiers = hit.collider.GetComponent<PlayerModifiers>();
+            info.TargetPlayerModifiers = hit.rigidbody.GetComponent<PlayerModifiers>(); // TODO: fix: Always hits self?
             info.NoPlayer = false;
         }
         else {

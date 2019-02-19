@@ -34,11 +34,10 @@ public class Speed : CardEffect {
     }
 
     public override void ExecutePlayer(PlayerModifiers playerModifiers) {
-        Debug.Log(playerModifiers);
-        
+        Debug.Log("Executing on: " + playerModifiers.gameObject.name);
 
         // Check if the recipient can recive the modifier
-        Modifier modifier = playerModifiers.Modifiers.First(x => x.GetType().Equals(TargetModifier.GetType()));
+        Modifier modifier = playerModifiers.Modifiers.OfType<SpeedModifier>().First();
         if (modifier != null && modifier.isModifying && !modifier.isStackable) return;
 
         modifier.Modify(playerModifiers, SpeedMultiplier, Duration);
