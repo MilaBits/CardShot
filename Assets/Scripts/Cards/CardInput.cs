@@ -1,5 +1,6 @@
 ﻿using Cards;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [RequireComponent(typeof(CardManager))]
 public class CardInput : MonoBehaviour {
@@ -14,8 +15,9 @@ public class CardInput : MonoBehaviour {
     [SerializeField]
     private LayerMask levelLayer;
 
+    [FormerlySerializedAs("networkPlayer")]
     [SerializeField]
-    private NetworkPlayer networkPlayer;
+    private NetworkUser networkUser;
 
     private void Start() {
         cardManager = GetComponent<CardManager>();
@@ -23,7 +25,7 @@ public class CardInput : MonoBehaviour {
 
     void Update() {
         // Don't cehck any input this isn't on the local player
-        if (!networkPlayer.isLocalPlayer) return;
+        if (!networkUser.isLocalPlayer) return;
         
         if (Input.GetButtonDown("Card1")) {
             cardManager.UseCard(GetUseInfo(0));

@@ -7,6 +7,7 @@
 
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.Serialization;
 
 [RequireComponent(typeof(Rigidbody))]
 public class CharacterController : MonoBehaviour {
@@ -22,8 +23,9 @@ public class CharacterController : MonoBehaviour {
 
     private Rigidbody rb;
 
+    [FormerlySerializedAs("networkPlayer")]
     [SerializeField]
-    private NetworkPlayer networkPlayer;
+    private NetworkUser networkUser;
 
     private void Awake() {
         rb = GetComponent<Rigidbody>();
@@ -37,7 +39,7 @@ public class CharacterController : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        if (networkPlayer.isLocalPlayer) {
+        if (networkUser.isLocalPlayer) {
             // Input.GetAxis() is used to get the user's input
             // You can furthor set it on Unity. (Edit, Project Settings, Input)
             translation = Input.GetAxis("Vertical") * speed * Time.deltaTime;
