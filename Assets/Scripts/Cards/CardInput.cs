@@ -1,5 +1,6 @@
 ﻿using Cards;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.Serialization;
 
 [RequireComponent(typeof(CardManager))]
@@ -17,7 +18,7 @@ public class CardInput : MonoBehaviour {
 
     [FormerlySerializedAs("networkPlayer")]
     [SerializeField]
-    private NetworkUser networkUser;
+    private NetworkIdentity userId;
 
     private void Start() {
         cardManager = GetComponent<CardManager>();
@@ -25,8 +26,8 @@ public class CardInput : MonoBehaviour {
 
     void Update() {
         // Don't cehck any input this isn't on the local player
-        if (!networkUser.isLocalPlayer) return;
-        
+        if (!userId.isLocalPlayer) return;
+
         if (Input.GetButtonDown("Card1")) {
             cardManager.UseCard(GetUseInfo(0));
         }
@@ -61,7 +62,7 @@ public class CardInput : MonoBehaviour {
 
     private UseInfo RaycastPlayer(UseInfo info) {
         RaycastHit hit = new RaycastHit();
-        Physics.Raycast(camera.transform.position, camera.transform.forward, out hit, playerLayer);
+        Physics.Raycast(camera.transform.position, camera.transform.forward, out hit, 500f, playerLayer);
         if (hit.collider != null) {
             info.TargetPlayerModifiers = hit.rigidbody.GetComponent<PlayerModifiers>(); // TODO: fix: Always hits self?
             info.NoPlayer = false;
@@ -75,7 +76,7 @@ public class CardInput : MonoBehaviour {
 
     private UseInfo RaycastLevel(UseInfo info) {
         RaycastHit hit = new RaycastHit();
-        Physics.Raycast(camera.transform.position, camera.transform.forward, out hit, levelLayer);
+        Physics.Raycast(camera.transform.position, camera.transform.forward, out hit, 500f, levelLayer);
         if (hit.collider != null) {
             info.TargetPosition = hit.point;
             info.NoPosition = false;

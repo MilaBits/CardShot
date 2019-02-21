@@ -11,7 +11,7 @@ public class StatIconUI : MonoBehaviour {
     private Image cooldownImage;
 
     public void Initialize(Sprite sprite, float duration, Color color) {
-        Debug.Log("buff start");
+        Debug.Log("Buff Start");
         image.sprite = sprite;
         image.color = color;
         StartCoroutine(ShowCooldown(duration));
@@ -22,12 +22,12 @@ public class StatIconUI : MonoBehaviour {
 
         while (counter < duration) {
             counter += Time.deltaTime;
-            Debug.Log("working");
             cooldownImage.fillAmount = 1 - counter / duration;
             yield return null;
         }
 
         // I know i should probably disable/enable instead of destroy/instantiate
         Destroy(gameObject);
+        Debug.Log("Buff End");
     }
 }

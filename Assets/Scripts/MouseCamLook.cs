@@ -7,6 +7,7 @@
  */
 
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.Serialization;
 
 public class MouseCamLook : MonoBehaviour {
@@ -33,13 +34,13 @@ public class MouseCamLook : MonoBehaviour {
 
     [FormerlySerializedAs("networkPlayer")]
     [SerializeField]
-    private NetworkUser networkUser;
+    private NetworkIdentity userId;
 
     // Use this for initialization
     void Start() {
         character = transform.parent.gameObject;
 
-        if (!networkUser.isLocalPlayer) {
+        if (!userId.isLocalPlayer) {
             GetComponent<Camera>().enabled = false;
             GetComponent<AudioListener>().enabled = false;
         }
@@ -47,7 +48,7 @@ public class MouseCamLook : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        if (networkUser.isLocalPlayer) {
+        if (userId.isLocalPlayer) {
             // md is mosue delta
             var md = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
             md = Vector2.Scale(md, new Vector2(sensitivity * smoothing, sensitivity * smoothing));

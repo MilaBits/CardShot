@@ -24,5 +24,6 @@ public class PlayerModifiers : MonoBehaviour {
     public void AddStatUI(Sprite sprite, float duration, Color color) {
         StatIconUI stat = Instantiate(StatIconPrefab, StatIconContainer);
         stat.Initialize(sprite, duration, color);
+        
     }
 }

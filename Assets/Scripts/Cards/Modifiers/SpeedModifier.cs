@@ -26,6 +26,8 @@ public class SpeedModifier : Modifier {
         coroutine = LastDuration(duration);
         // This feels hacky?????
         Controller.StartCoroutine(coroutine);
+        
+        Debug.Log(modifiers.gameObject.name + " hit by " + name);
     }
 
     public override void Cancel() {
