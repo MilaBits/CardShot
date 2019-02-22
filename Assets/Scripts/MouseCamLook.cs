@@ -32,23 +32,23 @@ public class MouseCamLook : MonoBehaviour {
     [SerializeField]
     private float VerticalDownLimit;
 
-    [FormerlySerializedAs("networkPlayer")]
-    [SerializeField]
-    private NetworkIdentity userId;
+//    [FormerlySerializedAs("networkPlayer")]
+//    [SerializeField]
+//    private NetworkIdentity userId;
 
     // Use this for initialization
     void Start() {
         character = transform.parent.gameObject;
 
-        if (!userId.isLocalPlayer) {
+//        if (!userId.isLocalPlayer) {
             GetComponent<Camera>().enabled = false;
             GetComponent<AudioListener>().enabled = false;
-        }
+//        }
     }
 
     // Update is called once per frame
     void Update() {
-        if (userId.isLocalPlayer) {
+//        if (userId.isLocalPlayer) {
             // md is mosue delta
             var md = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
             md = Vector2.Scale(md, new Vector2(sensitivity * smoothing, sensitivity * smoothing));
@@ -63,6 +63,6 @@ public class MouseCamLook : MonoBehaviour {
             // vector3.right means the x-axis
             transform.localRotation = Quaternion.AngleAxis(-mouseLook.y, Vector3.right);
             character.transform.localRotation = Quaternion.AngleAxis(mouseLook.x, character.transform.up);
-        }
+//        }
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 public class SpeedModifier : Modifier {
     [BoxGroup("$name")]
     [SerializeField]
-    private CharacterController Controller;
+    private PlayerCharacterController Controller;
 
     private float OriginalSpeed;
 
@@ -17,7 +17,7 @@ public class SpeedModifier : Modifier {
     private IEnumerator coroutine;
 
     public override void Modify(PlayerModifiers modifiers, float value, float duration) {
-        Controller = modifiers.GetComponent<CharacterController>();
+        Controller = modifiers.GetComponent<PlayerCharacterController>();
 
         OriginalSpeed = Controller.speed;
         Controller.speed *= value;
