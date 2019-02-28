@@ -16,18 +16,11 @@ public class CardInput : MonoBehaviour {
     [SerializeField]
     private LayerMask levelLayer;
 
-    [FormerlySerializedAs("networkPlayer")]
-    [SerializeField]
-    private NetworkIdentity userId;
-
     private void Start() {
         cardManager = GetComponent<CardManager>();
     }
 
     void Update() {
-        // Don't cehck any input this isn't on the local player
-        if (!userId.isLocalPlayer) return;
-
         if (Input.GetButtonDown("Card1")) {
             cardManager.UseCard(GetUseInfo(0));
         }
