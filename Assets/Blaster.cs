@@ -1,7 +1,12 @@
 using System.Collections;
+using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Experimental.Input;
 
 public class Blaster : MonoBehaviour {
+    [SerializeField, InlineEditor]
+    private ControlsContainer controlsContainer;
+
     [SerializeField]
     private int damage;
 
@@ -12,16 +17,25 @@ public class Blaster : MonoBehaviour {
 
     private AudioSource audioSource;
 
+
+    private void OnEnable() {
+        controlsContainer.Controls.Gameplay.Shoot.Enable();
+        controlsContainer.Controls.Gameplay.Shoot.performed += Shoot;
+        controlsContainer.Controls.Gameplay.Shoot.cancelled += Shoot;
+    }
+
+    private void OnDisable() {
+        controlsContainer.Controls.Gameplay.Shoot.Disable();
+        controlsContainer.Controls.Gameplay.Shoot.performed -= Shoot;
+        controlsContainer.Controls.Gameplay.Shoot.cancelled -= Shoot;
+    }
+
     private void Start() {
         lineRenderer = GetComponent<LineRenderer>();
         audioSource = GetComponent<AudioSource>();
     }
 
-    private void Update() {
-        if (Input.GetButtonDown("Fire1")) shoot();
-    }
-
-    public void shoot() {
+    public void Shoot(InputAction.CallbackContext context) {
         Ray ray = new Ray(transform.position, transform.forward);
 
         RaycastHit hit;

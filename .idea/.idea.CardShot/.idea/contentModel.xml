@@ -10,6 +10,9 @@
       <e p="Assets" t="Include">
         <e p="Blaster.cs" t="Include" />
         <e p="Health.cs" t="Include" />
+        <e p="Input" t="Include">
+          <e p="DefaultInputActions.cs" t="Include" />
+        </e>
         <e p="Plugins" t="Include">
           <e p="PhotonWebGL" t="Include">
             <e p="SocketWebTcp.cs" t="Include" />
@@ -68,10 +71,13 @@
             <e p="UISlot.cs" t="Include" />
             <e p="UseInfo.cs" t="Include" />
           </e>
+          <e p="ControlsContainer.cs" t="Include" />
+          <e p="ControlsScriptableObject.cs" t="Include" />
           <e p="MouseCamLook.cs" t="Include" />
           <e p="PlayerAnimatorManager.cs" t="Include" />
           <e p="PlayerCharacterController.cs" t="Include" />
           <e p="PlayerModifiers.cs" t="Include" />
+          <e p="ScriptableObjectUtility.cs" t="Include" />
           <e p="UserID.cs" t="Include" />
         </e>
         <e p="TextMesh Pro" t="Include">
