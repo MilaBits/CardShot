@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\Mila\.Rider2018.3\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\Mila\.Rider2018.3\system\resharper-host\local\Transient\ReSharperHost\v183\SolutionCaches\_CardShot.1702206169.00" t="ExcludeRecursive" />
-    <e p="D:\Data\Projects\Unity\CardShot" t="IncludeRecursive">
+    <e p="C:\Users\Milly\.Rider2018.3\config\scratches" t="IncludeRecursive" />
+    <e p="C:\Users\Milly\.Rider2018.3\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\Milly\.Rider2018.3\system\resharper-host\local\Transient\ReSharperHost\v183\SolutionCaches\_CardShot.1353077421.00" t="ExcludeRecursive" />
+    <e p="D:\Projects\Unity\CardShot" t="IncludeRecursive">
       <e p="Assembly-CSharp-Editor-firstpass.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp-firstpass.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />

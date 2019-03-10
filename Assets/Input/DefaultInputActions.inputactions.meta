@@ -3,28 +3,14 @@ guid: ac18c1e6283683842a21c1632b7c8851
 ScriptedImporter:
   fileIDToRecycleName:
     11400000: <root>
-    11400004: Gameplay/Look
-    11400006: Gameplay/Jump
-    11400012: Gameplay/Move
-    11400014: Gameplay/Shoot
-    11400018: PS4/Look
-    11400020: Gameplay/Card 1
-    11400022: Gameplay/Card 2
-    11400024: Gameplay/Card 3
-    11400026: Gameplay/Card 4
-    11400030: Xbox360/Move
-    11400032: Xbox360/Shoot
-    11400034: Xbox360/Card 1
-    11400036: Xbox360/Card 2
-    11400038: Xbox360/Card 3
-    11400040: Xbox360/Card 4
-    11400042: Xbox360/Card 5
-    11400044: PS4/Move
-    11400046: PS4/Shoot
-    11400048: PS4/Card 1
-    11400050: PS4/Card 2
-    11400052: PS4/Card 3
-    11400054: PS4/Card 4
+    11400002: Player/Move
+    11400008: Player/Look
+    11400010: Player/Shoot
+    11400016: Player/Card 1
+    11400018: Player/Card 2
+    11400028: Player/Card 3
+    11400030: Player/Card 4
+    11400032: Player/Jump
   externalObjects: {}
   userData: 
   assetBundleName: 

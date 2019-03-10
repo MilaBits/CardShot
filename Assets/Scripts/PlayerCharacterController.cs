@@ -5,20 +5,17 @@
  * date : 2017/12
  */
 
-using System;
-using System.Runtime.Remoting.Messaging;
-using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Experimental.Input;
-using UnityEngine.Networking;
-using UnityEngine.Serialization;
+using UnityEngine.Experimental.Input.Plugins.PlayerInput;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(PlayerCharacterController))]
 public class PlayerCharacterController : MonoBehaviour {
-
     [SerializeField]
-    private ControlsContainer controlsContainer;
+    private PlayerInput playerInput;
+
+    private InputActionMap actionMap;
 
     public float speed = 10.0f;
     private float translation;
@@ -34,48 +31,48 @@ public class PlayerCharacterController : MonoBehaviour {
 
     [SerializeField]
     private LayerMask WallMask;
+    
 
     private void Awake() {
         rb = GetComponent<Rigidbody>();
     }
 
     private void OnEnable() {
-        controlsContainer.Controls.Gameplay.Move.Enable();
-        controlsContainer.Controls.Gameplay.Move.performed += Move;
-        controlsContainer.Controls.Gameplay.Move.cancelled += Move;
 
-        controlsContainer.Controls.Gameplay.Jump.Enable();
-        controlsContainer.Controls.Gameplay.Jump.performed += Jump;
-        controlsContainer.Controls.Gameplay.Jump.cancelled += Jump;
+        actionMap = playerInput.actions.GetActionMap(playerInput.defaultActionMap) ;
+        
+        controlsContainer.Controls.Player.Move.performed += Move;
+        controlsContainer.Controls.Player.Move.cancelled += context => StopMoving();
+        controlsContainer.Controls.Player.Move.Enable();
+
+        controlsContainer.Controls.Player.Jump.performed += Jump;
+        controlsContainer.Controls.Player.Jump.cancelled += Jump;
+        controlsContainer.Controls.Player.Jump.Enable();
+
     }
 
     private void OnDisable() {
-        controlsContainer.Controls.Gameplay.Move.Disable();
-        controlsContainer.Controls.Gameplay.Move.performed -= Move;
-        controlsContainer.Controls.Gameplay.Move.cancelled -= Move;
+        controlsContainer.Controls.Player.Move.performed -= Move;
+        controlsContainer.Controls.Player.Move.cancelled -= context => StopMoving();
+        controlsContainer.Controls.Player.Move.Disable();
 
-        controlsContainer.Controls.Gameplay.Jump.Disable();
-        controlsContainer.Controls.Gameplay.Jump.performed -= Jump;
-        controlsContainer.Controls.Gameplay.Jump.cancelled -= Jump;
+        controlsContainer.Controls.Player.Jump.performed -= Jump;
+        controlsContainer.Controls.Player.Jump.cancelled -= Jump;        
+        controlsContainer.Controls.Player.Jump.Disable();
+
     }
 
-    // Use this for initialization
     void Start() {
-        // turn off the cursor
+        // hide the cursor
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    private void Move(InputAction.CallbackContext context) {
+    public void Move(InputAction.CallbackContext context) {
         Vector2 movement = context.ReadValue<Vector2>();
         
-        Debug.Log(movement);
-
         translation = movement.y * speed * Time.deltaTime;
         straffe = movement.x * speed * Time.deltaTime;
-    }
-
-    // Update is called once per frame
-    void Update() {
+        
         if (CheckForWall()) {
             straffe = 0;
             translation = 0;
@@ -89,6 +86,11 @@ public class PlayerCharacterController : MonoBehaviour {
             // turn on the cursor
             Cursor.lockState = CursorLockMode.None;
         }
+    }
+
+    private void StopMoving() {
+        translation = 0;
+        straffe = 0;
     }
 
     private void Jump(InputAction.CallbackContext context) {

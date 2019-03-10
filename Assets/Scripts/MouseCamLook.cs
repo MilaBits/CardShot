@@ -40,17 +40,17 @@ public class MouseCamLook : MonoBehaviour {
     private float VerticalDownLimit;
 
 
-    private void OnEnable() {
-        controlsContainer.Controls.Gameplay.Look.Enable();
-        controlsContainer.Controls.Gameplay.Look.performed += Look;
-        controlsContainer.Controls.Gameplay.Look.cancelled += Look;
-    }
-
-    private void OnDisable() {
-        controlsContainer.Controls.Gameplay.Look.Disable();
-        controlsContainer.Controls.Gameplay.Look.performed -= Look;
-        controlsContainer.Controls.Gameplay.Look.cancelled -= Look;
-    }
+//    private void OnEnable() {
+//        controlsContainer.Controls.Player.Look.Enable();
+//        controlsContainer.Controls.Player.Look.performed += Look;
+//        controlsContainer.Controls.Player.Look.cancelled += Look;
+//    }
+//
+//    private void OnDisable() {
+//        controlsContainer.Controls.Player.Look.Disable();
+//        controlsContainer.Controls.Player.Look.performed -= Look;
+//        controlsContainer.Controls.Player.Look.cancelled -= Look;
+//    }
 
     // Use this for initialization
     void Start() {
