@@ -12,10 +12,11 @@ using UnityEngine.Experimental.Input.Plugins.PlayerInput;
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(PlayerCharacterController))]
 public class PlayerCharacterController : MonoBehaviour {
-    [SerializeField]
-    private PlayerInput playerInput;
 
     private InputActionMap actionMap;
+
+    [SerializeField]
+    private Player player;
 
     public float speed = 10.0f;
     private float translation;
@@ -37,41 +38,18 @@ public class PlayerCharacterController : MonoBehaviour {
         rb = GetComponent<Rigidbody>();
     }
 
-    private void OnEnable() {
-
-        actionMap = playerInput.actions.GetActionMap(playerInput.defaultActionMap) ;
-        
-        controlsContainer.Controls.Player.Move.performed += Move;
-        controlsContainer.Controls.Player.Move.cancelled += context => StopMoving();
-        controlsContainer.Controls.Player.Move.Enable();
-
-        controlsContainer.Controls.Player.Jump.performed += Jump;
-        controlsContainer.Controls.Player.Jump.cancelled += Jump;
-        controlsContainer.Controls.Player.Jump.Enable();
-
-    }
-
-    private void OnDisable() {
-        controlsContainer.Controls.Player.Move.performed -= Move;
-        controlsContainer.Controls.Player.Move.cancelled -= context => StopMoving();
-        controlsContainer.Controls.Player.Move.Disable();
-
-        controlsContainer.Controls.Player.Jump.performed -= Jump;
-        controlsContainer.Controls.Player.Jump.cancelled -= Jump;        
-        controlsContainer.Controls.Player.Jump.Disable();
-
-    }
-
     void Start() {
         // hide the cursor
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    public void Move(InputAction.CallbackContext context) {
-        Vector2 movement = context.ReadValue<Vector2>();
-        
-        translation = movement.y * speed * Time.deltaTime;
-        straffe = movement.x * speed * Time.deltaTime;
+    private void Update() {
+        Move();
+    }
+
+    private void Move() {
+        translation = Input.GetAxis($"Vertical{player.ControlSuffix}")* speed * Time.deltaTime;
+        straffe = Input.GetAxis($"Horizontal{player.ControlSuffix}") * speed * Time.deltaTime;
         
         if (CheckForWall()) {
             straffe = 0;
@@ -80,6 +58,8 @@ public class PlayerCharacterController : MonoBehaviour {
         else {
             transform.Translate(straffe, 0, translation);
         }
+
+        if (Input.GetButtonDown($"Jump{player.ControlSuffix}")) Jump();
 
         //TODO: Turn into new input
         if (Input.GetKeyDown("escape")) {
@@ -93,7 +73,7 @@ public class PlayerCharacterController : MonoBehaviour {
         straffe = 0;
     }
 
-    private void Jump(InputAction.CallbackContext context) {
+    private void Jump() {
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
 

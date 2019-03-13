@@ -5,10 +5,8 @@ using UnityEngine.Experimental.Input;
 using UnityEngine.Experimental.Input.Plugins.PlayerInput;
 
 public class Blaster : MonoBehaviour {
-    [SerializeField, InlineEditor]
-    private ControlsContainer controlsContainer;
-
-    private PlayerInput playerInput;
+    [SerializeField]
+    private Player player;
 
     [SerializeField]
     private int damage;
@@ -20,25 +18,18 @@ public class Blaster : MonoBehaviour {
 
     private AudioSource audioSource;
 
-    private void OnEnable() {
-//        controlsContainer.Controls.Gameplay.Shoot.Enable();
-//        controlsContainer.Controls.Gameplay.Shoot.performed += Shoot;
-//        controlsContainer.Controls.Gameplay.Shoot.cancelled += Shoot;
-    }
-
-    private void OnDisable() {
-//        controlsContainer.Controls.Gameplay.Shoot.Disable();
-//        controlsContainer.Controls.Gameplay.Shoot.performed -= Shoot;
-//        controlsContainer.Controls.Gameplay.Shoot.cancelled -= Shoot;
-    }
-
     private void Start() {
-        playerInput = GetComponent<PlayerInput>();
         lineRenderer = GetComponent<LineRenderer>();
         audioSource = GetComponent<AudioSource>();
     }
 
-    public void Shoot(InputAction.CallbackContext context) {
+    private void Update() {
+        if (Input.GetButtonDown($"Shoot{player.ControlSuffix}")) {
+            Shoot();
+        }
+    }
+
+    public void Shoot() {
         Ray ray = new Ray(transform.position, transform.forward);
 
         RaycastHit hit;

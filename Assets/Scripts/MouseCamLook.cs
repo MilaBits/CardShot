@@ -13,8 +13,8 @@ using UnityEngine.Networking;
 using UnityEngine.Serialization;
 
 public class MouseCamLook : MonoBehaviour {
-    [SerializeField, InlineEditor]
-    private ControlsContainer controlsContainer;
+    [SerializeField]
+    private Player player;
 
     [SerializeField]
     public float sensitivity = 5.0f;
@@ -39,31 +39,15 @@ public class MouseCamLook : MonoBehaviour {
     [SerializeField]
     private float VerticalDownLimit;
 
-
-//    private void OnEnable() {
-//        controlsContainer.Controls.Player.Look.Enable();
-//        controlsContainer.Controls.Player.Look.performed += Look;
-//        controlsContainer.Controls.Player.Look.cancelled += Look;
-//    }
-//
-//    private void OnDisable() {
-//        controlsContainer.Controls.Player.Look.Disable();
-//        controlsContainer.Controls.Player.Look.performed -= Look;
-//        controlsContainer.Controls.Player.Look.cancelled -= Look;
-//    }
-
     // Use this for initialization
     void Start() {
         character = transform.parent.gameObject;
     }
 
-    private void Look(InputAction.CallbackContext context) {
-        look = context.ReadValue<Vector2>();
-    }
-
     // Update is called once per frame
     void Update() {
-        var md = new Vector2(look.x, look.y);
+        var md = new Vector2(Input.GetAxis($"Look_Horizontal{player.ControlSuffix}"),
+            Input.GetAxis($"Look_Vertical{player.ControlSuffix}"));
         md = Vector2.Scale(md, new Vector2(sensitivity * smoothing, sensitivity * smoothing));
         // the interpolated float result between the two float values
         smoothV.x = Mathf.Lerp(smoothV.x, md.x, 1f / smoothing);
