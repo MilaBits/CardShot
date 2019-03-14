@@ -1,4 +1,5 @@
-﻿using Cards;
+﻿using System;
+using Cards;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.Serialization;
@@ -6,6 +7,9 @@ using UnityEngine.Serialization;
 [RequireComponent(typeof(CardManager))]
 public class CardInput : MonoBehaviour {
     private CardManager cardManager;
+
+    [SerializeField]
+    private Player player;
 
     [SerializeField]
     private Camera camera;
@@ -21,24 +25,49 @@ public class CardInput : MonoBehaviour {
     }
 
     void Update() {
-        if (Input.GetButtonDown("Card1")) {
-            cardManager.UseCard(GetUseInfo(0));
-        }
+        switch (player.Platform) {
+            case Platform.Keyboard:
+                if (Input.GetButtonDown($"Card1{player.ControlSuffix}")) {
+                    cardManager.UseCard(GetUseInfo(0));
+                }
 
-        if (Input.GetButtonDown("Card2")) {
-            cardManager.UseCard(GetUseInfo(1));
-        }
+                if (Input.GetButtonDown($"Card2{player.ControlSuffix}")) {
+                    cardManager.UseCard(GetUseInfo(1));
+                }
 
-        if (Input.GetButtonDown("Card3")) {
-            cardManager.UseCard(GetUseInfo(2));
-        }
+                if (Input.GetButtonDown($"Card3{player.ControlSuffix}")) {
+                    cardManager.UseCard(GetUseInfo(2));
+                }
 
-        if (Input.GetButtonDown("Card4")) {
-            cardManager.UseCard(GetUseInfo(3));
-        }
+                if (Input.GetButtonDown($"Card4{player.ControlSuffix}")) {
+                    cardManager.UseCard(GetUseInfo(3));
+                }
 
-        if (Input.GetButtonDown("Card5")) {
-            cardManager.UseCard(GetUseInfo(4));
+                break;
+            case Platform.Ps4:
+            case Platform.Xbox:
+                Debug.Log("dpad x: " + Input.GetAxis($"Card2{player.ControlSuffix}"));
+                Debug.Log("dpad y: " + Input.GetAxis($"Card1{player.ControlSuffix}"));
+
+                if (Input.GetAxis($"Card1{player.ControlSuffix}") > 0) {
+                    cardManager.UseCard(GetUseInfo(0));
+                }
+
+                if (Input.GetAxis($"Card2{player.ControlSuffix}") > 0) {
+                    cardManager.UseCard(GetUseInfo(1));
+                }
+
+                if (Input.GetAxis($"Card3{player.ControlSuffix}") < 0) {
+                    cardManager.UseCard(GetUseInfo(3));
+                }
+
+                if (Input.GetAxis($"Card4{player.ControlSuffix}") < 0) {
+                    cardManager.UseCard(GetUseInfo(4));
+                }
+
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
         }
     }
 

@@ -15,6 +15,7 @@ public class Card : ScriptableObject {
     [LabelWidth(70), Multiline(3), HideLabel]
     public string Description;
 
+    private static Type[] effectTypes = {typeof(CardEffect)};
     [Space]
     [InlineEditor(InlineEditorModes.GUIOnly, InlineEditorObjectFieldModes.Hidden)]
     public List<CardEffect> CardEffects;

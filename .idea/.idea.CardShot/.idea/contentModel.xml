@@ -10,12 +10,6 @@
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
         <e p="Blaster.cs" t="Include" />
-        <e p="GamePadInput" t="Include">
-          <e p="Demo" t="Include">
-            <e p="DemoScript.cs" t="Include" />
-          </e>
-          <e p="GamePad.cs" t="Include" />
-        </e>
         <e p="Health.cs" t="Include" />
         <e p="Input" t="Include">
           <e p="DefaultInputActions.cs" t="Include" />
@@ -78,14 +72,14 @@
             <e p="UISlot.cs" t="Include" />
             <e p="UseInfo.cs" t="Include" />
           </e>
-          <e p="ControlsContainer.cs" t="Include" />
-          <e p="ControlsScriptableObject.cs" t="Include" />
           <e p="Editor" t="Include">
+            <e p="CardEditor.cs" t="Include" />
             <e p="GameManagerEditor.cs" t="Include" />
             <e p="SpawnPointEditor.cs" t="Include" />
           </e>
           <e p="GameManager.cs" t="Include" />
           <e p="MouseCamLook.cs" t="Include" />
+          <e p="Platform.cs" t="Include" />
           <e p="Player.cs" t="Include" />
           <e p="PlayerAnimatorManager.cs" t="Include" />
           <e p="PlayerCharacterController.cs" t="Include" />

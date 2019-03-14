@@ -18,27 +18,52 @@ public class GameManager : MonoBehaviour {
     [SerializeField]
     private RenderTexture[] playerViews;
 
+
+    private bool keyboardPlayerAdded;
+    private bool gamepadPlayerAdded;
     private void Update() {
         if (Players.Count < playerLimit) {
-            if (Input.GetButtonDown("Jump_1_Keyboard")) {
-                SpawnPlayer(Players.Count, "Keyboard");
+            if (gamepadPlayerAdded && !keyboardPlayerAdded && Input.GetButtonDown("Jump_2_Keyboard")) {
+                keyboardPlayerAdded = true;
+                SpawnPlayer(Players.Count + 1, Platform.Keyboard);
             }
 
-            if (Input.GetButtonDown("Jump_1_Ps4")) {
-                SpawnPlayer(Players.Count, "Ps4");
+            if (!gamepadPlayerAdded && Input.GetButtonDown("Jump_1_Ps4")) {
+                gamepadPlayerAdded = true;
+                SpawnPlayer(Players.Count + 1, Platform.Ps4);
+                return;
+            }
+
+            if (!gamepadPlayerAdded &&Input.GetButtonDown("Jump_1_Xbox")) {
+                gamepadPlayerAdded = true;
+                SpawnPlayer(Players.Count + 1, Platform.Xbox);
+                return;
             }
         }
     }
 
-    private void SpawnPlayer(int playerId, string platform) {
+    private void SpawnPlayer(int playerId, Platform platform) {
         SpawnPoint spawn = SpawnPoints[Random.Range(0, SpawnPoints.Count - 1)];
         Player player = Instantiate(PlayerPrefab, spawn.transform.position, spawn.transform.rotation);
         Players.Add(player);
-        player.playerNumber = playerId;
+        player.gameObject.name = $"Player {playerId}";
+        player.PlayerNumber = playerId;
+        player.Platform = platform;
 
-        player.ControlSuffix = $"_{playerId+1}_{platform}";
+        player.ControlSuffix = $"_{playerId}_{platform}";
+
+        switch (playerId) {
+            case 1:
+                player.HUD.anchoredPosition = new Vector3(-205, -32, 0);
+                break;
+            case 2:
+                player.HUD.anchoredPosition = new Vector3(205, -32, 0);
+                break;
+        }
+        
+        Debug.Log($"Player {playerId} Joined ({platform})");
 
         // Give player their screen
-        player.camera.targetTexture = playerViews[playerId];
+        player.Camera.targetTexture = playerViews[playerId - 1];
     }
 }

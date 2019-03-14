@@ -6,6 +6,7 @@
  * date : 2017/12
  */
 
+using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Experimental.Input;
@@ -18,6 +19,8 @@ public class MouseCamLook : MonoBehaviour {
 
     [SerializeField]
     public float sensitivity = 5.0f;
+
+    public float GamepadSensitivity = .2f;
 
     [SerializeField]
     public float smoothing = 2.0f;
@@ -46,9 +49,20 @@ public class MouseCamLook : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        var md = new Vector2(Input.GetAxis($"Look_Horizontal{player.ControlSuffix}"),
-            Input.GetAxis($"Look_Vertical{player.ControlSuffix}"));
-        md = Vector2.Scale(md, new Vector2(sensitivity * smoothing, sensitivity * smoothing));
+        float x = Input.GetAxis($"Look_Horizontal{player.ControlSuffix}");
+        float y = Input.GetAxis($"Look_Vertical{player.ControlSuffix}");
+
+        var md = new Vector2(x, y);
+
+        switch (player.Platform) {
+            case Platform.Keyboard:
+                md = Vector2.Scale(md, new Vector2(sensitivity * smoothing, sensitivity * smoothing));
+                break;
+            case Platform.Ps4:
+            case Platform.Xbox:
+                md = Vector2.Scale(md, new Vector2(GamepadSensitivity * smoothing, GamepadSensitivity * smoothing));
+                break;
+        }
         // the interpolated float result between the two float values
         smoothV.x = Mathf.Lerp(smoothV.x, md.x, 1f / smoothing);
         smoothV.y = Mathf.Lerp(smoothV.y, md.y, 1f / smoothing);

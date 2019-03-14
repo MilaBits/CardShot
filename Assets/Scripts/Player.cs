@@ -1,8 +1,11 @@
 using UnityEngine;
 
 public class Player : MonoBehaviour {
-    public int playerNumber;
-    public Camera camera;
+    public int PlayerNumber;
+    public Platform Platform;
+    public Camera Camera;
+
+    public RectTransform HUD;
 
     public string ControlSuffix;
 }

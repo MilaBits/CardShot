@@ -1,29 +1,39 @@
-﻿using Cards;
+﻿using System;
+using Cards;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class CardManager : MonoBehaviour {
-    [InlineEditor] public Deck Deck;
+    [InlineEditor]
+    public Deck Deck;
 
-    [SerializeField] [OnValueChanged("UpdateHandSize")]
+    [SerializeField]
+    private Player player;
+
+    [SerializeField]
+    [OnValueChanged("UpdateHandSize")]
     private int HandSize;
 
-    [SerializeField] public Card[] Hand;
+    [SerializeField]
+    public Card[] Hand;
 
-    [SerializeField, PropertyOrder(2)] private RectTransform SlotContainer;
+    [SerializeField, PropertyOrder(2)]
+    private RectTransform SlotContainer;
 
     private UISlot[] UISlots;
 
-    [SerializeField, PropertyOrder(3)] private UISlot UISlotPrefab;
+    [SerializeField, PropertyOrder(3)]
+    private UISlot UISlotPrefab;
 
     private void UpdateHandSize() {
         Hand = new Card[HandSize];
     }
 
     public void UseCard(UseInfo info) {
-        if (info.Slot >= HandSize) return; // Card won't exist if higher than hand size.
+        if (info.Slot > HandSize) return; // Card won't exist if higher than hand size.
 
-        Hand[info.Slot].Use(info);
+        Debug.Log(info.Slot+ ", " + Hand.Length);
+        Hand[info.Slot-1].Use(info);
         UISlots[info.Slot].RemoveCard();
     }
 
@@ -33,7 +43,16 @@ public class CardManager : MonoBehaviour {
         UISlots = new UISlot[HandSize];
         for (int i = 0; i < HandSize; i++) {
             UISlot slot = Instantiate(UISlotPrefab, SlotContainer);
-            slot.SetSubText((i + 1).ToString());
+            switch (player.Platform) {
+                case Platform.Keyboard:
+                    slot.SetSubText((i + 1).ToString());
+                    break;
+                case Platform.Ps4:
+                case Platform.Xbox:
+                    slot.SetSubText(Enum.GetName(typeof(Directions), i));
+                    break;
+            }
+
             UISlots[i] = slot;
         }
 
@@ -57,5 +76,12 @@ public class CardManager : MonoBehaviour {
                 slot.SetCard(Hand[i]);
             }
         }
+    }
+
+    private enum Directions {
+        Up,
+        Right,
+        Down,
+        Left
     }
 }
