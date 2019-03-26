@@ -33,7 +33,7 @@ public class CardManager : MonoBehaviour {
         if (info.Slot > HandSize) return; // Card won't exist if higher than hand size.
 
         Debug.Log(info.Slot+ ", " + Hand.Length);
-        Hand[info.Slot-1].Use(info);
+        Hand[info.Slot].Use(info);
         UISlots[info.Slot].RemoveCard();
     }
 

@@ -46,23 +46,23 @@ public class CardInput : MonoBehaviour {
                 break;
             case Platform.Ps4:
             case Platform.Xbox:
-                Debug.Log("dpad x: " + Input.GetAxis($"Card2{player.ControlSuffix}"));
-                Debug.Log("dpad y: " + Input.GetAxis($"Card1{player.ControlSuffix}"));
+//                Debug.Log("dpad x: " + Input.GetAxis($"Card2{player.ControlSuffix}"));
+//                Debug.Log("dpad y: " + Input.GetAxis($"Card1{player.ControlSuffix}"));
 
-                if (Input.GetAxis($"Card1{player.ControlSuffix}") > 0) {
+                if (Input.GetAxis($"Card1{player.ControlSuffix}") == 1) {
                     cardManager.UseCard(GetUseInfo(0));
                 }
 
-                if (Input.GetAxis($"Card2{player.ControlSuffix}") > 0) {
+                if (Input.GetAxis($"Card2{player.ControlSuffix}") == 1) {
                     cardManager.UseCard(GetUseInfo(1));
                 }
 
-                if (Input.GetAxis($"Card3{player.ControlSuffix}") < 0) {
-                    cardManager.UseCard(GetUseInfo(3));
+                if (Input.GetAxis($"Card3{player.ControlSuffix}") == -1) {
+                    cardManager.UseCard(GetUseInfo(2));
                 }
 
-                if (Input.GetAxis($"Card4{player.ControlSuffix}") < 0) {
-                    cardManager.UseCard(GetUseInfo(4));
+                if (Input.GetAxis($"Card4{player.ControlSuffix}") == -1) {
+                    cardManager.UseCard(GetUseInfo(3));
                 }
 
                 break;

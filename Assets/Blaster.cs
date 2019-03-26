@@ -30,17 +30,18 @@ public class Blaster : MonoBehaviour {
     }
 
     public void Shoot() {
-        Ray ray = new Ray(transform.position, transform.forward);
+        Ray ray = new Ray(transform.parent.position, transform.forward);
 
         RaycastHit hit;
-        Physics.Raycast(ray, out hit, 500f);
+        Physics.Raycast(ray, out hit, 500f, hitMask);
 
         StartCoroutine(ShowLine(0.1f));
 
         if (hit.collider != null) {
             lineRenderer.SetPositions(new Vector3[] {transform.position, hit.point});
-            if (hit.collider.gameObject.layer == hitMask)
-                hit.collider.GetComponent<Health>().TakeDamage(damage);
+
+            var health = hit.collider.GetComponentInParent<Health>();
+            if (health) health.TakeDamage(damage);
         }
     }
 

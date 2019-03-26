@@ -16,6 +16,7 @@ public class Card : ScriptableObject {
     public string Description;
 
     private static Type[] effectTypes = {typeof(CardEffect)};
+
     [Space]
     [InlineEditor(InlineEditorModes.GUIOnly, InlineEditorObjectFieldModes.Hidden)]
     public List<CardEffect> CardEffects;
@@ -27,10 +28,10 @@ public class Card : ScriptableObject {
                     Debug.LogAssertion($"Effect {name} has no target");
                     break;
                 case EffectTarget.Self:
-                    cardEffect.ExecutePlayer(info.Caster);
+                    if (info.Caster) cardEffect.ExecutePlayer(info.Caster);
                     break;
                 case EffectTarget.Opponent:
-                    cardEffect.ExecutePlayer(info.TargetPlayerModifiers);
+                    if (info.TargetPlayerModifiers) cardEffect.ExecutePlayer(info.TargetPlayerModifiers);
                     break;
                 case EffectTarget.Area:
                     cardEffect.ExecuteArea(info.TargetPosition);
