@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\Milly\.Rider2018.3\config\scratches" t="IncludeRecursive" />
-    <e p="C:\Users\Milly\.Rider2018.3\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\Milly\.Rider2018.3\system\resharper-host\local\Transient\ReSharperHost\v183\SolutionCaches\_CardShot.1353077421.00" t="ExcludeRecursive" />
-    <e p="D:\Projects\Unity\CardShot" t="IncludeRecursive">
+    <e p="C:\Users\Mila\.Rider2018.3\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\Mila\.Rider2018.3\system\resharper-host\local\Transient\ReSharperHost\v183\SolutionCaches\_CardShot.1702206169.00" t="ExcludeRecursive" />
+    <e p="D:\Data\Projects\Unity\CardShot" t="IncludeRecursive">
       <e p="Assembly-CSharp-Editor-firstpass.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp-firstpass.csproj" t="IncludeRecursive" />
@@ -68,6 +67,7 @@
             <e p="Modifiers" t="Include">
               <e p="SpeedModifier.cs" t="Include" />
             </e>
+            <e p="PlayerState.cs" t="Include" />
             <e p="StatIconUI.cs" t="Include" />
             <e p="UICard.cs" t="Include" />
             <e p="UISlot.cs" t="Include" />
@@ -85,8 +85,12 @@
           <e p="PlayerAnimatorManager.cs" t="Include" />
           <e p="PlayerCharacterController.cs" t="Include" />
           <e p="PlayerModifiers.cs" t="Include" />
+          <e p="PlayerStateInfo.cs" t="Include" />
+          <e p="ScoreUI.cs" t="Include" />
           <e p="ScriptableObjectUtility.cs" t="Include" />
           <e p="SpawnPoint.cs" t="Include" />
+          <e p="SplitScreenUI.cs" t="Include" />
+          <e p="Team.cs" t="Include" />
           <e p="UserID.cs" t="Include" />
         </e>
         <e p="TextMesh Pro" t="Include">

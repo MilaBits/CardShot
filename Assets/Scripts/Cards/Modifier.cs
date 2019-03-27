@@ -25,6 +25,6 @@ public abstract class Modifier : ScriptableObject {
     public bool isStackable;
 
     public abstract void Modify(PlayerModifiers parent, float value, float duration);
-
+    
     public abstract void Cancel();
 }

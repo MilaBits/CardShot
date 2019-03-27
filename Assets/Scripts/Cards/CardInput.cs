@@ -46,9 +46,6 @@ public class CardInput : MonoBehaviour {
                 break;
             case Platform.Ps4:
             case Platform.Xbox:
-//                Debug.Log("dpad x: " + Input.GetAxis($"Card2{player.ControlSuffix}"));
-//                Debug.Log("dpad y: " + Input.GetAxis($"Card1{player.ControlSuffix}"));
-
                 if (Input.GetAxis($"Card1{player.ControlSuffix}") == 1) {
                     cardManager.UseCard(GetUseInfo(0));
                 }

@@ -48,15 +48,13 @@ public class PlayerCharacterController : MonoBehaviour {
     }
 
     private void Move() {
-        translation = Input.GetAxis($"Vertical{player.ControlSuffix}")* speed * Time.deltaTime;
-        straffe = Input.GetAxis($"Horizontal{player.ControlSuffix}") * speed * Time.deltaTime;
+        Vector3 move = new Vector3(Input.GetAxis($"Horizontal{player.ControlSuffix}"), 0 ,Input.GetAxis($"Vertical{player.ControlSuffix}"));
         
         if (CheckForWall()) {
-            straffe = 0;
-            translation = 0;
+            move = Vector3.zero;
         }
         else {
-            transform.Translate(straffe, 0, translation);
+            transform.Translate(move.normalized * speed * Time.deltaTime);
         }
 
         if (Input.GetButtonDown($"Jump{player.ControlSuffix}")) Jump();
@@ -66,11 +64,6 @@ public class PlayerCharacterController : MonoBehaviour {
             // turn on the cursor
             Cursor.lockState = CursorLockMode.None;
         }
-    }
-
-    private void StopMoving() {
-        translation = 0;
-        straffe = 0;
     }
 
     private void Jump() {

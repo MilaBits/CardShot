@@ -84,4 +84,9 @@ public class CardManager : MonoBehaviour {
         Down,
         Left
     }
+
+    public void Reset() {
+       Deck.Initialize();
+       FillHand();
+    }
 }
