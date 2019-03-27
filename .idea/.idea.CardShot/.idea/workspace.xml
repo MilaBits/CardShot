@@ -70,8 +70,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Assets/Scripts/GameManager.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="337">
-              <caret line="116" column="27" lean-forward="true" selection-start-line="116" selection-start-column="27" selection-end-line="116" selection-end-column="27" />
+            <state relative-caret-position="593">
+              <caret line="120" lean-forward="true" selection-start-line="120" selection-end-line="120" />
               <folding>
                 <marker date="1553691942273" expanded="true" signature="6:283" ph="..." />
                 <marker date="1553691942273" expanded="true" signature="326:4348" ph="{...}" />
@@ -387,12 +387,12 @@
       <workItem from="1551427921236" duration="14481000" />
       <workItem from="1552471047425" duration="8244000" />
       <workItem from="1552552246765" duration="20146000" />
-      <workItem from="1553673483359" duration="14710000" />
+      <workItem from="1553673483359" duration="14772000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="120798000" />
+    <option name="totallyTimeSpent" value="120860000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -415,7 +415,7 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32977587" />
       <window_info anchor="bottom" id="Run" order="2" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.2288699" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.2288699" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -1074,8 +1074,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Assets/Scripts/GameManager.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="337">
-          <caret line="116" column="27" lean-forward="true" selection-start-line="116" selection-start-column="27" selection-end-line="116" selection-end-column="27" />
+        <state relative-caret-position="593">
+          <caret line="120" lean-forward="true" selection-start-line="120" selection-end-line="120" />
           <folding>
             <marker date="1553691942273" expanded="true" signature="6:283" ph="..." />
             <marker date="1553691942273" expanded="true" signature="326:4348" ph="{...}" />
