@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [Serializable]
-public class PlayerStateInfo {
+public class PlayerStateInfo
+{
     [SerializeField]
     private PlayerState state;
 
@@ -17,9 +18,11 @@ public class PlayerStateInfo {
     [SerializeField]
     private Image crosshair;
 
-    public void SetState(PlayerState state) {
+    public void SetState(PlayerState state)
+    {
         this.state = state;
-        switch (state) {
+        switch (this.state)
+        {
             case PlayerState.Joining:
                 readyText.gameObject.SetActive(false);
                 crosshair.gameObject.SetActive(false);

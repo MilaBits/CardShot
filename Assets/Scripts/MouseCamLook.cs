@@ -48,7 +48,7 @@ public class MouseCamLook : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update() {
+    void FixedUpdate() {
         float x = Input.GetAxis($"Look_Horizontal{player.ControlSuffix}");
         float y = Input.GetAxis($"Look_Vertical{player.ControlSuffix}");
 

@@ -1,10 +1,16 @@
 using TMPro;
 using UnityEngine;
 
-public class Player : MonoBehaviour {
+public class Player : MonoBehaviour
+{
     public int PlayerNumber;
     public Platform Platform;
     public Camera Camera;
+
+    public MeshRenderer MeshRenderer;
+    public CardManager CardManager;
+
+    public Health Health;
 
     public bool Ready = false;
 
@@ -12,17 +18,21 @@ public class Player : MonoBehaviour {
 
     public string ControlSuffix;
 
-    public void Reset() {
+    public void Reset()
+    {
         Ready = false;
 
-        GetComponent<Health>().Reset();
-        GetComponent<CardManager>().Reset();
+        Health.Reset();
+        CardManager.Reset();
         GetComponent<CardInput>().enabled = true;
     }
 
-    private void Update() {
-        if (!Ready) {
-            if (Input.GetButtonDown($"Jump{ControlSuffix}")) {
+    private void Update()
+    {
+        if (!Ready)
+        {
+            if (Input.GetButton($"Shoot{ControlSuffix}"))
+            {
                 Ready = true;
             }
         }

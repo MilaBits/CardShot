@@ -3,7 +3,8 @@ using Cards;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class CardManager : MonoBehaviour {
+public class CardManager : MonoBehaviour
+{
     [InlineEditor]
     public Deck Deck;
 
@@ -25,25 +26,30 @@ public class CardManager : MonoBehaviour {
     [SerializeField, PropertyOrder(3)]
     private UISlot UISlotPrefab;
 
-    private void UpdateHandSize() {
+    private void UpdateHandSize()
+    {
         Hand = new Card[HandSize];
     }
 
-    public void UseCard(UseInfo info) {
+    public void UseCard(UseInfo info)
+    {
         if (info.Slot > HandSize) return; // Card won't exist if higher than hand size.
 
-        Debug.Log(info.Slot+ ", " + Hand.Length);
+        Debug.Log(info.Slot + ", " + Hand.Length);
         Hand[info.Slot].Use(info);
         UISlots[info.Slot].RemoveCard();
     }
 
-    private void Start() {
+    private void Start()
+    {
         Deck.Initialize();
 
         UISlots = new UISlot[HandSize];
-        for (int i = 0; i < HandSize; i++) {
+        for (int i = 0; i < HandSize; i++)
+        {
             UISlot slot = Instantiate(UISlotPrefab, SlotContainer);
-            switch (player.Platform) {
+            switch (player.Platform)
+            {
                 case Platform.Keyboard:
                     slot.SetSubText((i + 1).ToString());
                     break;
@@ -60,8 +66,10 @@ public class CardManager : MonoBehaviour {
     }
 
     [Button("Fill Hand", ButtonStyle.CompactBox), PropertyOrder(1)]
-    public void FillHand() {
-        for (var i = 0; i < Hand.Length; i++) {
+    public void FillHand()
+    {
+        for (var i = 0; i < Hand.Length; i++)
+        {
             Card card = Hand[i];
             if (card == null) Hand[i] = Deck.Draw();
         }
@@ -69,24 +77,29 @@ public class CardManager : MonoBehaviour {
         UpdateHandUI();
     }
 
-    private void UpdateHandUI() {
-        for (var i = 0; i < UISlots.Length; i++) {
+    private void UpdateHandUI()
+    {
+        for (var i = 0; i < UISlots.Length; i++)
+        {
             UISlot slot = UISlots[i];
-            if (Hand[i] != null) {
+            if (Hand[i] != null)
+            {
                 slot.SetCard(Hand[i]);
             }
         }
     }
 
-    private enum Directions {
+    private enum Directions
+    {
         Up,
         Right,
         Down,
         Left
     }
 
-    public void Reset() {
-       Deck.Initialize();
-       FillHand();
+    public void Reset()
+    {
+        Deck.Initialize();
+        FillHand();
     }
 }

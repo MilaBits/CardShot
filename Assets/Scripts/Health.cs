@@ -9,12 +9,20 @@ public class Health : MonoBehaviour {
     private int health = 100;
 
     public UnityEvent OnDeath;
+    public UnityEvent OnDamage;
+
+    public int getHealth() {
+        return health;
+    }
 
     public void TakeDamage(int damage) {
         health -= damage;
-        Debug.Log($"{gameObject.name} health: {health}");
+        
+        OnDamage.Invoke();
 
-        if (health <= 0) {
+        if (health <= 0)
+        {
+            health = maxHealth;
             OnDeath.Invoke();
         }
     }

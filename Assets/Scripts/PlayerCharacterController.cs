@@ -11,8 +11,8 @@ using UnityEngine.Experimental.Input.Plugins.PlayerInput;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(PlayerCharacterController))]
-public class PlayerCharacterController : MonoBehaviour {
-
+public class PlayerCharacterController : MonoBehaviour
+{
     private InputActionMap actionMap;
 
     [SerializeField]
@@ -32,60 +32,47 @@ public class PlayerCharacterController : MonoBehaviour {
 
     [SerializeField]
     private LayerMask WallMask;
-    
 
-    private void Awake() {
+
+    private void Awake()
+    {
         rb = GetComponent<Rigidbody>();
     }
 
-    void Start() {
-        // hide the cursor
+    void Start()
+    {
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    private void Update() {
+    private void FixedUpdate()
+    {
         Move();
+
+        if (rb.velocity.y < 0)
+        {
+            rb.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
+        }
     }
 
-    private void Move() {
-        Vector3 move = new Vector3(Input.GetAxis($"Horizontal{player.ControlSuffix}"), 0 ,Input.GetAxis($"Vertical{player.ControlSuffix}"));
-        
-        if (CheckForWall()) {
-            move = Vector3.zero;
-        }
-        else {
-            transform.Translate(move.normalized * speed * Time.deltaTime);
+    private void Move()
+    {
+        Vector3 forwardVel = transform.forward * speed * Input.GetAxis($"Vertical{player.ControlSuffix}");
+        Vector3 horizontalVel = transform.right * speed * Input.GetAxis($"Horizontal{player.ControlSuffix}");
+        Vector3 verticalVel = transform.up * rb.velocity.y + Physics.gravity * Time.fixedDeltaTime;
+
+        if (Input.GetButtonDown($"Jump{player.ControlSuffix}"))
+        {
+            verticalVel = transform.up * jumpForce;
         }
 
-        if (Input.GetButtonDown($"Jump{player.ControlSuffix}")) Jump();
+        rb.velocity = forwardVel + horizontalVel + verticalVel;
+
 
         //TODO: Turn into new input
-        if (Input.GetKeyDown("escape")) {
+        if (Input.GetKeyDown("escape"))
+        {
             // turn on the cursor
             Cursor.lockState = CursorLockMode.None;
-        }
-    }
-
-    private void Jump() {
-        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-    }
-
-    private bool CheckForWall() {
-        Vector3 dir = Quaternion.Euler(0, transform.eulerAngles.y, 0) * new Vector3(straffe, 0, translation);
-
-        RaycastHit hit;
-        Physics.Raycast(transform.position + new Vector3(0, 1f, 0), dir, out hit, 0.6f, WallMask);
-        if (hit.collider == null) {
-            return false;
-        }
-
-        Debug.Log("Wall");
-        return true;
-    }
-
-    private void FixedUpdate() {
-        if (rb.velocity.y < 0) {
-            rb.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
         }
     }
 }

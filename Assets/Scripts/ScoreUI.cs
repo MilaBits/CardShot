@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using DefaultNamespace;
 using Sirenix.OdinInspector;
 using TMPro;
@@ -26,6 +27,9 @@ public class ScoreUI : MonoBehaviour {
     [SerializeField, BoxGroup("Round")]
     private Image RoundState;
 
+    private float p1Health = 100;
+    private float p2Health = 100;
+
     private int roundTime;
 
     [SerializeField, BoxGroup("Round")]
@@ -33,9 +37,6 @@ public class ScoreUI : MonoBehaviour {
 
     public void SetRoundTime(int time) {
         roundTimeText.text = $"{Math.Floor(time / 60f)}:{time % 60}";
-    }
-
-    private void UpdateRoundState() {
     }
 
     [Button]
@@ -81,6 +82,38 @@ public class ScoreUI : MonoBehaviour {
 
         if (RedScore >= 3) {
             // red wins
+        }
+    }
+
+    public void ResetRoundState() {
+        p1Health = 100;
+        p2Health = 100;
+        StartCoroutine(LerpRoundState(.5f, 1f));
+    }
+
+    public void SetRoundState(Team team, float health) {
+        switch (team) {
+            case Team.Blue:
+                p1Health = health;
+                break;
+            case Team.Red:
+                p2Health = health;
+                break;
+        }
+
+        float redPercent = p2Health / (p1Health + p2Health);
+
+        StartCoroutine(LerpRoundState(redPercent, .5f));
+    }
+
+    private IEnumerator LerpRoundState(float newValue, float time) {
+        float elapsedTime = 0;
+        float startingValue = RoundState.fillAmount;
+        while (elapsedTime < time) {
+            RoundState.fillAmount = Mathf.Lerp(RoundState.fillAmount, newValue, time);
+
+            elapsedTime += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
         }
     }
 }
