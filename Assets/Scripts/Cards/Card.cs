@@ -34,7 +34,7 @@ public class Card : ScriptableObject {
                     if (info.TargetPlayerModifiers) cardEffect.ExecutePlayer(info.TargetPlayerModifiers);
                     break;
                 case EffectTarget.Area:
-                    cardEffect.ExecuteArea(info.TargetPosition);
+                    cardEffect.ExecuteArea(info);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

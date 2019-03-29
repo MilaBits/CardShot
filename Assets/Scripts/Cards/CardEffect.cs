@@ -1,19 +1,20 @@
-﻿using Sirenix.OdinInspector;
+﻿using Cards;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
-public abstract class CardEffect : ScriptableObject {
+public abstract class CardEffect : ScriptableObject
+{
     protected string Description;
 
-    [InfoBox("$Description")] [BoxGroup("$name"), LabelWidth(100)]
+    [InfoBox("$Description")]
+    [BoxGroup("$name"), LabelWidth(100)]
     public EffectTarget Target;
 
-    [LabelWidth(100), BoxGroup("$name")] [ShowIf("IsArea")]
-    public float Range;
-
-    private bool IsArea() {
+    private bool IsArea()
+    {
         return Target == EffectTarget.Area;
     }
 
-    public abstract void ExecuteArea(Vector3 position);
+    public abstract void ExecuteArea(UseInfo position);
     public abstract void ExecutePlayer(PlayerModifiers playerModifiers);
 }

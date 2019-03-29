@@ -1,3 +1,4 @@
+using DefaultNamespace;
 using TMPro;
 using UnityEngine;
 
@@ -11,6 +12,7 @@ public class Player : MonoBehaviour
     public CardManager CardManager;
 
     public Health Health;
+    public Team team;
 
     public bool Ready = false;
 

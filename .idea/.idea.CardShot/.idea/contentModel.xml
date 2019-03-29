@@ -49,12 +49,15 @@
           </e>
         </e>
         <e p="Scripts" t="Include">
+          <e p="BarrierHealth.cs" t="Include" />
           <e p="Blaster.cs" t="Include" />
+          <e p="Blocker.cs" t="Include" />
           <e p="Cards" t="Include">
             <e p="Card.cs" t="Include" />
             <e p="CardEffect.cs" t="Include" />
             <e p="CardEffects" t="Include">
               <e p="Block.cs" t="Include" />
+              <e p="Jump.cs" t="Include" />
               <e p="Speed.cs" t="Include" />
             </e>
             <e p="CardInput.cs" t="Include" />
@@ -63,6 +66,7 @@
             <e p="EffectTarget.cs" t="Include" />
             <e p="Modifier.cs" t="Include" />
             <e p="Modifiers" t="Include">
+              <e p="JumpModifier.cs" t="Include" />
               <e p="SpeedModifier.cs" t="Include" />
             </e>
             <e p="PlayerState.cs" t="Include" />

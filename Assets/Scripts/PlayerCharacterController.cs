@@ -8,6 +8,7 @@
 using UnityEngine;
 using UnityEngine.Experimental.Input;
 using UnityEngine.Experimental.Input.Plugins.PlayerInput;
+using UnityEngine.Serialization;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(PlayerCharacterController))]
@@ -18,12 +19,13 @@ public class PlayerCharacterController : MonoBehaviour
     [SerializeField]
     private Player player;
 
-    public float speed = 10.0f;
+    [FormerlySerializedAs("speed")]
+    public float Speed = 10.0f;
     private float translation;
     private float straffe;
 
-    [SerializeField]
-    private float jumpForce = 2.25f;
+    [FormerlySerializedAs("jumpForce")]
+    public float JumpForce = 2.25f;
 
     [SerializeField]
     private float fallMultiplier = 2.25f;
@@ -56,13 +58,13 @@ public class PlayerCharacterController : MonoBehaviour
 
     private void Move()
     {
-        Vector3 forwardVel = transform.forward * speed * Input.GetAxis($"Vertical{player.ControlSuffix}");
-        Vector3 horizontalVel = transform.right * speed * Input.GetAxis($"Horizontal{player.ControlSuffix}");
+        Vector3 forwardVel = transform.forward * Speed * Input.GetAxis($"Vertical{player.ControlSuffix}");
+        Vector3 horizontalVel = transform.right * Speed * Input.GetAxis($"Horizontal{player.ControlSuffix}");
         Vector3 verticalVel = transform.up * rb.velocity.y + Physics.gravity * Time.fixedDeltaTime;
 
         if (Input.GetButtonDown($"Jump{player.ControlSuffix}"))
         {
-            verticalVel = transform.up * jumpForce;
+            verticalVel = transform.up * JumpForce;
         }
 
         rb.velocity = forwardVel + horizontalVel + verticalVel;

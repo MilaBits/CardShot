@@ -6,12 +6,12 @@ public class PlayerModifiers : MonoBehaviour {
     [SerializeField, InlineEditor]
     private List<Modifier> modifiersToUse;
 
-    [InlineEditor]
+    [InlineEditor(InlineEditorObjectFieldModes.CompletelyHidden)]
     public List<Modifier> Modifiers;
 
     [BoxGroup("Stat UI"), SerializeField]
     private RectTransform StatIconContainer;
-
+ 
     [BoxGroup("Stat UI"), SerializeField]
     private StatIconUI StatIconPrefab;
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Cards;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -29,8 +30,8 @@ public class Speed : CardEffect {
             $"{multiplier} Target's movement speed by {Math.Abs(SpeedMultiplier * 100 - 100)}% for {Duration} seconds";
     }
 
-    public override void ExecuteArea(Vector3 position) {
-        Debug.Log($"{name} hit {position}");
+    public override void ExecuteArea(UseInfo info) {
+        Debug.Log($"{name} hit {info.TargetPosition}");
     }
 
     public override void ExecutePlayer(PlayerModifiers playerModifiers) {

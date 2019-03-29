@@ -121,7 +121,7 @@ public class GameManager : MonoBehaviour
         foreach (Player player in Players)
         {
             splitScreenUI.PlayerStates[player.PlayerNumber - 1].SetState(PlayerState.Playing);
-            
+
             int r;
 
             do
@@ -159,32 +159,31 @@ public class GameManager : MonoBehaviour
         player.Platform = platform;
         player.ControlSuffix = $"_{playerId}_{platform}";
 
-        player.Health.OnDeath.AddListener(splitScreenUI.FadeOut);
-        player.Health.OnDeath.AddListener(delegate { StartRound(2f); });
-
         switch (playerId)
         {
             case 1:
-                player.Health.OnDamage.AddListener(delegate
-                {
-                    scoreUi.SetRoundState(Team.Blue, player.Health.getHealth());
-                });
+                player.team = Team.Blue;
+
                 player.Health.OnDeath.AddListener(delegate { scoreUi.AddScore(Team.Red); });
 
                 player.HUD.anchoredPosition = new Vector3(-205, -32, 0);
                 break;
             case 2:
-                player.Health.OnDamage.AddListener(delegate
-                {
-                    scoreUi.SetRoundState(Team.Red, player.Health.getHealth());
-                });
+                player.team = Team.Red;
+
+
                 player.Health.OnDeath.AddListener(delegate { scoreUi.AddScore(Team.Blue); });
 
                 player.HUD.anchoredPosition = new Vector3(205, -32, 0);
                 break;
         }
 
-        Debug.Log($"Player {playerId} Joined ({platform})");
+        player.Health.OnDamage.AddListener(delegate { scoreUi.SetRoundState(player.team, player.Health.getHealth()); });
+
+        player.Health.OnDeath.AddListener(splitScreenUI.FadeOut);
+        player.Health.OnDeath.AddListener(delegate { StartRound(2f); });
+
+        Debug.Log($"Player {player.team} Joined ({platform})");
 
         // Give player their screen
         player.Camera.targetTexture = playerViews[playerId - 1];

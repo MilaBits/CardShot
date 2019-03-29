@@ -6,7 +6,7 @@ public class Health : MonoBehaviour {
     private int maxHealth = 100;
 
     [SerializeField]
-    private int health = 100;
+    protected  int health = 100;
 
     public UnityEvent OnDeath;
     public UnityEvent OnDamage;
@@ -15,7 +15,7 @@ public class Health : MonoBehaviour {
         return health;
     }
 
-    public void TakeDamage(int damage) {
+    public virtual void TakeDamage(int damage) {
         health -= damage;
         
         OnDamage.Invoke();

@@ -1,7 +1,16 @@
-namespace DefaultNamespace
+public class BarrierHealth : Health
 {
-    public class BarrierHealth
+    public void SetHealth(int hits)
     {
-        
+        health = hits;
+    }
+
+    public override void TakeDamage(int damage)
+    {
+        health--;
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }

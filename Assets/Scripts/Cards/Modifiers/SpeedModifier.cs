@@ -21,8 +21,8 @@ public class SpeedModifier : Modifier
     {
         Controller = modifiers.GetComponent<PlayerCharacterController>();
 
-        OriginalSpeed = Controller.speed;
-        Controller.speed *= value;
+        OriginalSpeed = Controller.Speed;
+        Controller.Speed *= value;
         isModifying = true;
 
         coroutine = LastDuration(duration);
@@ -40,7 +40,7 @@ public class SpeedModifier : Modifier
 
     private void ResetModifier()
     {
-        Controller.speed = OriginalSpeed;
+        Controller.Speed = OriginalSpeed;
         isModifying = false;
     }
 

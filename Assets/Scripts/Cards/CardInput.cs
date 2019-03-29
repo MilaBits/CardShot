@@ -5,7 +5,8 @@ using UnityEngine.Networking;
 using UnityEngine.Serialization;
 
 [RequireComponent(typeof(CardManager))]
-public class CardInput : MonoBehaviour {
+public class CardInput : MonoBehaviour
+{
     private CardManager cardManager;
 
     [SerializeField]
@@ -14,61 +15,73 @@ public class CardInput : MonoBehaviour {
     [SerializeField]
     private Camera camera;
 
+    [FormerlySerializedAs("playerLayer")]
     [SerializeField]
-    private LayerMask playerLayer;
+    private LayerMask targetLayer;
 
     [SerializeField]
     private LayerMask levelLayer;
+    
+    
 
-    private void Start() {
+    private bool released;
+
+    private void Start()
+    {
         cardManager = GetComponent<CardManager>();
     }
 
-    void Update() {
-        switch (player.Platform) {
+
+    void Update()
+    {
+        if (!released &&
+            Input.GetAxis($"Card1{player.ControlSuffix}") == 0 &&
+            Input.GetAxis($"Card2{player.ControlSuffix}") == 0) released = true;
+
+        if (!released)
+            return;
+
+        switch (player.Platform)
+        {
             case Platform.Keyboard:
-                if (Input.GetButtonDown($"Card1{player.ControlSuffix}")) {
-                    cardManager.UseCard(GetUseInfo(0));
-                }
-
-                if (Input.GetButtonDown($"Card2{player.ControlSuffix}")) {
-                    cardManager.UseCard(GetUseInfo(1));
-                }
-
-                if (Input.GetButtonDown($"Card3{player.ControlSuffix}")) {
-                    cardManager.UseCard(GetUseInfo(2));
-                }
-
-                if (Input.GetButtonDown($"Card4{player.ControlSuffix}")) {
-                    cardManager.UseCard(GetUseInfo(3));
-                }
+                if (Input.GetButtonDown($"Card1{player.ControlSuffix}")) cardManager.UseCard(GetUseInfo(0));
+                if (Input.GetButtonDown($"Card2{player.ControlSuffix}")) cardManager.UseCard(GetUseInfo(1));
+                if (Input.GetButtonDown($"Card3{player.ControlSuffix}")) cardManager.UseCard(GetUseInfo(2));
+                if (Input.GetButtonDown($"Card4{player.ControlSuffix}")) cardManager.UseCard(GetUseInfo(3));
 
                 break;
             case Platform.Ps4:
             case Platform.Xbox:
-                if (Input.GetAxis($"Card1{player.ControlSuffix}") == 1) {
+                if (Input.GetAxis($"Card1{player.ControlSuffix}") == 1)
+                {
                     cardManager.UseCard(GetUseInfo(0));
+                    released = false;
                 }
 
-                if (Input.GetAxis($"Card2{player.ControlSuffix}") == 1) {
+                if (Input.GetAxis($"Card2{player.ControlSuffix}") == 1)
+                {
                     cardManager.UseCard(GetUseInfo(1));
+                    released = false;
                 }
 
-                if (Input.GetAxis($"Card3{player.ControlSuffix}") == -1) {
+                if (Input.GetAxis($"Card3{player.ControlSuffix}") == -1)
+                {
                     cardManager.UseCard(GetUseInfo(2));
+                    released = false;
                 }
 
-                if (Input.GetAxis($"Card4{player.ControlSuffix}") == -1) {
+                if (Input.GetAxis($"Card4{player.ControlSuffix}") == -1)
+                {
                     cardManager.UseCard(GetUseInfo(3));
+                    released = false;
                 }
 
                 break;
-            default:
-                throw new ArgumentOutOfRangeException();
         }
     }
 
-    private UseInfo GetUseInfo(int slot) {
+    private UseInfo GetUseInfo(int slot)
+    {
         UseInfo info = new UseInfo();
 
         info.Slot = slot;
@@ -79,28 +92,36 @@ public class CardInput : MonoBehaviour {
         return info;
     }
 
-    private UseInfo RaycastPlayer(UseInfo info) {
+    private UseInfo RaycastPlayer(UseInfo info)
+    {
         RaycastHit hit = new RaycastHit();
-        Physics.Raycast(camera.transform.position, camera.transform.forward, out hit, 500f, playerLayer);
-        if (hit.collider != null) {
-            info.TargetPlayerModifiers = hit.rigidbody.GetComponent<PlayerModifiers>(); // TODO: fix: Always hits self?
+        Physics.Raycast(camera.transform.position, camera.transform.forward, out hit, 500f, targetLayer);
+        if (hit.collider != null)
+        {
+            Debug.Log("hit: " + hit.collider.gameObject.name);
+
+            info.TargetPlayerModifiers = hit.rigidbody.GetComponentInParent<PlayerModifiers>();
             info.NoPlayer = false;
         }
-        else {
+        else
+        {
             info.NoPlayer = true;
         }
 
         return info;
     }
 
-    private UseInfo RaycastLevel(UseInfo info) {
+    private UseInfo RaycastLevel(UseInfo info)
+    {
         RaycastHit hit = new RaycastHit();
         Physics.Raycast(camera.transform.position, camera.transform.forward, out hit, 500f, levelLayer);
-        if (hit.collider != null) {
+        if (hit.collider != null)
+        {
             info.TargetPosition = hit.point;
             info.NoPosition = false;
         }
-        else {
+        else
+        {
             info.NoPosition = true;
         }
 

@@ -2,14 +2,14 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Modifier (Speed)", menuName = "Cards/Modifiers/Speed")]
-public class SpeedModifier : Modifier
+[CreateAssetMenu(fileName = "New Modifier (Jump)", menuName = "Cards/Modifiers/Jump")]
+public class JumpModifier : Modifier
 {
     [BoxGroup("$name")]
     [SerializeField]
     private PlayerCharacterController Controller;
 
-    private float OriginalSpeed;
+    private float originalJumpForce;
 
     [BoxGroup("$name")]
     [SerializeField, ReadOnly]
@@ -21,11 +21,11 @@ public class SpeedModifier : Modifier
     {
         Controller = modifiers.GetComponent<PlayerCharacterController>();
 
-        OriginalSpeed = Controller.speed;
-        Controller.speed *= value;
+        originalJumpForce = Controller.JumpForce;
+        Controller.JumpForce *= value;
         isModifying = true;
 
-        coroutine = LastDuration(duration);
+        coroutine = WaitForReset(duration);
         // This feels hacky?????
         Controller.StartCoroutine(coroutine);
 
@@ -40,11 +40,11 @@ public class SpeedModifier : Modifier
 
     private void ResetModifier()
     {
-        Controller.speed = OriginalSpeed;
+        Controller.JumpForce = originalJumpForce;
         isModifying = false;
     }
 
-    IEnumerator LastDuration(float duration)
+    IEnumerator WaitForReset(float duration)
     {
         Duration = duration;
         yield return new WaitForSeconds(duration);
